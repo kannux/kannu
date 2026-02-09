@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Gift - Kannu & Shivu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Nunito', sans-serif; }
+        .font-heading { font-family: 'Great Vibes', cursive; }
+        
+        /* --- CUSTOM FONT FOR SHIVUUU BABYYY --- */
+        @font-face {
+            font-family: 'AstonScriptPro-Bold';
+            /* If you have the file, uncomment the line below and change path */
+            /* src: url('AstonScriptPro-Bold.ttf') format('truetype'); */
+            font-weight: 700;
+        }
+
+        #partner-name {
+            font-family: 'AstonScriptPro-Bold', 'Great Vibes', cursive;
+            font-weight: 700;
+            font-size: 1.1em; /* Slight bump for script fonts */
+        }
+		
+		.myfont {
+            font-family: 'AstonScriptPro-Bold', 'Great Vibes', cursive;
+            font-weight: 700;
+            font-size: 1.1em; /* Slight bump for script fonts */
+        }
+		
+        /* -------------------------------------- */
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        
+        /* Polaroid Effect */
+        .polaroid {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            transform: rotate(-2deg);
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 20;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        /* Rotate every other image differently for a "scattered" look */
+        .polaroid:nth-child(even) { transform: rotate(2deg); }
+        .polaroid:nth-child(even):hover { transform: scale(1.05) rotate(0deg); }
+    </style>
+</head>
+<body class="bg-pink-50 text-slate-800 antialiased min-h-screen">
+
+    <audio id="bg-music" loop>
+        <source src="http://primemods.co.in/sounds/song.mpeg" type="audio/mpeg">
+    </audio>
+    <button onclick="toggleMusic()" id="music-btn" class="fixed bottom-4 right-4 z-[60] bg-white p-3 rounded-full shadow-lg border border-pink-200 text-pink-500 hidden animate-bounce">
+        🎵 Music On/Off
+    </button>
+
+    <div id="lock-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-pink-100 transition-opacity duration-700">
+        <div class="relative bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-rose-200 w-full max-w-sm mx-4">
+            
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-rose-100 rounded-full mb-4 animate-float">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-8 h-8 text-rose-500 mx-auto mb-2" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <h1 class="myfont text-3xl font-heading text-rose-600">Secret Gift</h1>
+                <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">Enter Secret Date</p>
+                <div class="mt-2 bg-yellow-50 border border-yellow-200 rounded px-2 py-1 inline-block">
+                    <p class="text-xs text-yellow-600"><span class="font-bold">HINT:</span> 143</p>
+                </div>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-100 rounded-lg p-4 mb-6 text-center h-16 flex items-center justify-center shadow-inner">
+                <span id="pass-display" class="text-3xl text-rose-600 font-mono tracking-[0.5em] h-8 block">
+                    <span class="opacity-30 text-slate-400 text-sm tracking-normal font-sans">Enter Pin</span>
+                </span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mb-6">
+                <button onclick="addDigit('1')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">1</button>
+                <button onclick="addDigit('2')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">2</button>
+                <button onclick="addDigit('3')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">3</button>
+                <button onclick="addDigit('4')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">4</button>
+                <button onclick="addDigit('5')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">5</button>
+                <button onclick="addDigit('6')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">6</button>
+                <button onclick="addDigit('7')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">7</button>
+                <button onclick="addDigit('8')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">8</button>
+                <button onclick="addDigit('9')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">9</button>
+                <div></div>
+                <button onclick="addDigit('0')" class="key-btn h-16 w-16 mx-auto rounded-full bg-white hover:bg-rose-50 border border-slate-100 hover:border-rose-200 text-slate-700 text-xl font-medium shadow-sm active:scale-95 flex items-center justify-center">0</button>
+                <button onclick="removeDigit()" class="h-16 w-16 mx-auto rounded-full text-rose-300 hover:text-rose-500 flex items-center justify-center font-bold text-2xl">
+                    ⌫
+                </button>
+            </div>
+
+            <button id="unlock-btn" onclick="checkPassword()" disabled class="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-rose-200 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50">
+                UNLOCK GIFT
+            </button>
+            <p id="error-msg" class="text-red-500 text-center text-sm mt-2 opacity-0 transition-opacity">Incorrect Password</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
+        
+        <header class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img id="hero-image" src="https://primemods.co.in/couple.jpeg" class="w-full h-full object-cover" alt="Couple Photo">
+                <div class="absolute inset-0 bg-black/40"></div>
+            </div>
+            
+            <div class="relative z-10 text-center text-white px-4 animate-float">
+                <h1 class="text-6xl md:text-8xl font-heading mb-4 drop-shadow-lg text-pink-200">Happy Valentine's Day</h1>
+                <p class="text-2xl md:text-3xl font-light mb-6">My Dearest <span id="partner-name" class="text-rose-400 bg-white/10 px-2 rounded"></span></p>
+                
+                <div class="bg-white/20 backdrop-blur-sm p-6 rounded-2xl border border-white/30 inline-block mt-4">
+                    <p class="uppercase tracking-widest text-sm mb-2">We've been in love for</p>
+                    <div id="timer" class="grid grid-cols-4 gap-4 text-center">
+                        <div><span id="days" class="block text-3xl font-bold">0</span><span class="text-xs">Days</span></div>
+                        <div><span id="hours" class="block text-3xl font-bold">0</span><span class="text-xs">Hours</span></div>
+                        <div><span id="minutes" class="block text-3xl font-bold">0</span><span class="text-xs">Mins</span></div>
+                        <div><span id="seconds" class="block text-3xl font-bold">0</span><span class="text-xs">Secs</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+                <span class="text-3xl">↓</span>
+            </div>
+        </header>
+
+        <div class="max-w-4xl mx-auto px-6 py-16 space-y-24">
+            
+            <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border-t-4 border-rose-400 transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+                <div class="text-center mb-8">
+                    <span class="text-4xl">💌</span>
+                    <h2 class="myfont text-4xl font-heading text-rose-600 mt-2">My Love Letter</h2>
+                </div>
+                <div id="love-letter" class="whitespace-pre-line text-lg text-slate-600 leading-relaxed font-serif text-center italic"></div>
+                <div class="myfont mt-8 text-right font-heading text-3xl text-rose-500 pr-4">- <span id="sender-name"></span></div>
+            </section>
+
+            <section>
+                <h2 class="myfont text-5xl font-heading text-rose-600 mb-10 text-center">Why I Love You</h2>
+                <div id="reasons-container" class="grid gap-6"></div>
+            </section>
+
+            <section class="bg-rose-50/50 p-8 rounded-3xl">
+                <h2 class="myfont text-5xl font-heading text-rose-600 mb-10 text-center">Our Story</h2>
+                <div id="timeline-container" class="border-l-4 border-rose-300 ml-4 space-y-12 pl-8"></div>
+            </section>
+
+            <section class="bg-rose-100 p-8 rounded-3xl border-2 border-dashed border-rose-300 text-center">
+                <h2 class="myfont text-4xl font-heading text-rose-700 mb-8">Our Bucket List 📝</h2>
+                <ul id="bucket-list" class="space-y-4 text-lg text-slate-800 inline-block text-left"></ul>
+            </section>
+
+            <section>
+                <h2 class="myfont text-5xl font-heading text-rose-600 mb-10 text-center">Moments</h2>
+                <div id="gallery-grid" class="flex flex-wrap justify-center gap-8 md:gap-12"></div>
+            </section>
+
+        </div>
+        
+        <footer class="text-center py-10 text-slate-400 text-sm bg-slate-50">
+            Made with ❤️ by Kannu for Shivu
+        </footer>
+    </div>
+
+    <script>
+        // --- DATA CONFIGURATION ---
+        const vaultData = {
+            password: "143",
+            sender: "Kannu",
+            partner: "Shivuuu babyyy",
+            startDate: new Date(2024, 6, 13), // Jan 1st, 2024
+            
+            // Hero Image (Placeholder)
+            heroImage: "https://primemods.co.in/couple.jpeg",
+            
+            reasons: [
+                "You make me happy always.",
+                "You make me complete.",
+                "You understand me in every way."
+            ],
+            timeline: [
+                {date:"13 June 2024", emoji:"💬", title:"First hie", desc:"A simple hie text on snapchat that turned into endless conversation."},
+                {date:"20 June 2024", emoji:"❤️", title:"Late night talks started", desc:"Talking till midnight,sharing secrets and making memories with each other by endless conversation."},
+                {date:"23 June 2024", emoji:"😅", title:"First fight", desc:"We fight, disagreed on each other thaughts and realised how much we care for each other."},
+                {date:"26 June 2024", emoji:"❤️", title:"Making up", desc:"An apology by both sides made out love more stronger and we realised we can't live without each other."},
+                {date:"13 June 2025", emoji:"🎁", title:"One precious year to our bond", desc:"We made many memories together, made beautiful memories, talked endlessly and many more years to come together."}
+            ],
+            bucketList: [
+                "Travelling whole world together.",
+                "Going on long drives.",
+                "Going on dinner dates."
+            ],
+            loveLetter: "Heyyy janaaa,\nI loveeee youuu so much meri jaaan mera babyy mera sb kch ap mere liye mera sb kch hooo you make me complete you\'re mine everything.\nApki importance words me describe karna possible nahi he aap mere liye mere life ka sabse important and special part hooo.\nAap god ka sabse bestest gift ho.\nYou\'re presence is everything for meee and you always know know much I love you and adore youuu.\nHamesha mere sth rehna mere pas rehna kyuki apke bina me adhuri hu ❤️🌎.\nApka hona hi sb kch he mere liyeeeee from the day we met till now humne bht sari memories create ki he and I hope age bhi karenge and hamesha sth rahngee.\nAp mere har ups and downs me sth rahe hooo🫠.\nAp mere liye mera dil hoo jiske bina me adhuri huu apne mujhe har wo cheej di he jo shayad me deserve bhi nahi krti uh make me happy in every sense 😭❤️.\nI loveeeee you sooo much janaaa and I\'ll loveee you forever and always 🫠",
+            
+            // ----- FAIL-PROOF PLACEHOLDERS -----
+            // IMPORTANT: Replace these links with your own photos!
+            gallery: [
+                "https://primemods.co.in/pic1.jpeg",
+                "https://primemods.co.in/pic2.jpeg",
+                "https://primemods.co.in/pic3.jpeg",
+                "https://primemods.co.in/pic4.jpeg",
+                "https://primemods.co.in/pic5.jpeg",
+                "https://primemods.co.in/pic6.jpeg"
+            ]
+        };
+
+        // --- APP LOGIC ---
+        let input = "";
+        const display = document.getElementById('pass-display');
+        const unlockBtn = document.getElementById('unlock-btn');
+        const errorMsg = document.getElementById('error-msg');
+
+        function updateDisplay() {
+            if (input.length === 0) {
+                display.innerHTML = '<span class="opacity-30 text-slate-400 text-sm tracking-normal font-sans">Enter Pin</span>';
+                unlockBtn.disabled = true;
+            } else {
+                display.innerText = "❤️".repeat(input.length);
+                unlockBtn.disabled = false;
+            }
+            errorMsg.style.opacity = '0';
+        }
+
+        function addDigit(digit) {
+            if(input.length < 8) {
+                input += digit;
+                updateDisplay();
+            }
+        }
+
+        function removeDigit() {
+            input = input.slice(0, -1);
+            updateDisplay();
+        }
+
+        function checkPassword() {
+            if (input === vaultData.password) {
+                unlockVault();
+            } else {
+                errorMsg.style.opacity = '1';
+                const container = document.querySelector('#lock-screen > div');
+                container.classList.add('animate-pulse');
+                setTimeout(() => container.classList.remove('animate-pulse'), 500);
+            }
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            if(music.paused) {
+                music.play();
+                document.getElementById('music-btn').innerText = "🎵 Pause Music";
+            } else {
+                music.pause();
+                document.getElementById('music-btn').innerText = "▶️ Play Music";
+            }
+        }
+
+        function startTimer() {
+            function update() {
+                const now = new Date();
+                const diff = now - vaultData.startDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
+            }
+            setInterval(update, 1000);
+            update();
+        }
+
+        function unlockVault() {
+            const lockScreen = document.getElementById('lock-screen');
+            lockScreen.style.transform = 'scale(1.1)';
+            lockScreen.style.opacity = '0';
+            
+            const music = document.getElementById('bg-music');
+            music.play().then(() => {
+                document.getElementById('music-btn').innerText = "🎵 Pause Music";
+            }).catch(() => {
+                console.log("Auto-play prevented");
+            });
+            document.getElementById('music-btn').classList.remove('hidden');
+
+            setTimeout(() => {
+                lockScreen.style.display = 'none';
+                const content = document.getElementById('main-content');
+                content.classList.remove('hidden');
+                void content.offsetWidth; 
+                content.style.opacity = '1';
+                
+                document.getElementById('partner-name').innerText = vaultData.partner;
+                document.getElementById('sender-name').innerText = vaultData.sender;
+                document.getElementById('hero-image').src = vaultData.heroImage;
+                document.getElementById('love-letter').innerText = vaultData.loveLetter;
+                
+                startTimer();
+
+                // Reasons
+                const reasonsContainer = document.getElementById('reasons-container');
+                vaultData.reasons.forEach((reason, index) => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-6 rounded-xl shadow-sm border-l-4 border-rose-400 flex items-center gap-4 hover:shadow-md transition-all";
+                    card.innerHTML = `<span class="text-4xl font-heading text-rose-300">${index+1}</span><p class="text-slate-700 font-medium">${reason}</p>`;
+                    reasonsContainer.appendChild(card);
+                });
+
+                // Timeline
+                const timelineContainer = document.getElementById('timeline-container');
+                vaultData.timeline.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = "relative";
+                    div.innerHTML = `
+                        <div class="absolute -left-[59px] bg-white h-10 w-10 rounded-full flex items-center justify-center border-4 border-rose-100 text-xl shadow-sm">${item.emoji}</div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-rose-50 hover:shadow-md transition-all">
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">${item.date}</span>
+                            <h3 class="font-bold text-slate-800 text-xl mt-1">${item.title}</h3>
+                            <p class="text-slate-600 mt-2">${item.desc}</p>
+                        </div>
+                    `;
+                    timelineContainer.appendChild(div);
+                });
+
+                // Bucket List
+                const bucketContainer = document.getElementById('bucket-list');
+                vaultData.bucketList.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = "flex items-center gap-3 justify-center md:justify-start";
+                    li.innerHTML = `<span class="text-rose-500 text-xl">♥</span> <span class="text-lg">${item}</span>`;
+                    bucketContainer.appendChild(li);
+                });
+
+                // Gallery (Polaroid Style)
+                const galleryContainer = document.getElementById('gallery-grid');
+                vaultData.gallery.forEach(url => {
+                    const div = document.createElement('div');
+                    div.className = "polaroid w-64 md:w-72"; 
+                    div.innerHTML = `
+                        <div class="aspect-square overflow-hidden rounded-sm mb-2">
+                            <img src="${url}" class="w-full h-full object-cover">
+                        </div>
+                    `;
+                    galleryContainer.appendChild(div);
+                });
+
+            }, 700);
+        }
+    </script>
+</body>
+</html>
